@@ -63,7 +63,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Network error. Please check your connection and try again.",
     ),
     "authErrorNotConfigured": MessageLookupByLibrary.simpleMessage(
-      "Firebase is not configured yet on this device.",
+      "Firebase Authentication is not configured or enabled yet for this project.",
+    ),
+    "authErrorOperationNotAllowed": MessageLookupByLibrary.simpleMessage(
+      "Email/Password sign-in is not enabled yet in Firebase Authentication.",
     ),
     "authErrorTooManyRequests": MessageLookupByLibrary.simpleMessage(
       "Too many attempts. Please wait a moment and try again.",

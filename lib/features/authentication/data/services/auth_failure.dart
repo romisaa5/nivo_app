@@ -13,6 +13,7 @@ enum AuthFailureType {
   tooManyRequests,
   networkError,
   notConfigured,
+  operationNotAllowed,
   unknown,
 }
 
@@ -24,6 +25,14 @@ class AuthFailure implements Exception {
 
   /// Maps a [FirebaseAuthException] to a typed [AuthFailure].
   factory AuthFailure.fromFirebaseException(FirebaseAuthException e) {
+    final normalizedMessage = (e.message ?? '').toUpperCase();
+    if (normalizedMessage.contains('CONFIGURATION_NOT_FOUND')) {
+      return const AuthFailure(AuthFailureType.notConfigured);
+    }
+    if (normalizedMessage.contains('OPERATION_NOT_ALLOWED')) {
+      return const AuthFailure(AuthFailureType.operationNotAllowed);
+    }
+
     switch (e.code) {
       case 'invalid-email':
         return const AuthFailure(AuthFailureType.invalidEmail);
@@ -44,8 +53,11 @@ class AuthFailure implements Exception {
         return const AuthFailure(AuthFailureType.tooManyRequests);
       case 'network-request-failed':
         return const AuthFailure(AuthFailureType.networkError);
+      case 'operation-not-allowed':
+        return const AuthFailure(AuthFailureType.operationNotAllowed);
       case 'no-app':
       case 'app-not-authorized':
+      case 'invalid-api-key':
         return const AuthFailure(AuthFailureType.notConfigured);
       default:
         return const AuthFailure(AuthFailureType.unknown);
@@ -75,6 +87,8 @@ class AuthFailure implements Exception {
         return s.authErrorNetwork;
       case AuthFailureType.notConfigured:
         return s.authErrorNotConfigured;
+      case AuthFailureType.operationNotAllowed:
+        return s.authErrorOperationNotAllowed;
       case AuthFailureType.unknown:
         return s.authErrorUnknown;
     }

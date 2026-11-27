@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:intl/intl.dart';
 import 'package:nivo/core/helpers/app_logger.dart';
 import 'package:nivo/features/authentication/data/services/auth_failure.dart';
 
@@ -26,13 +27,25 @@ class FirebaseAuthService {
     return _auth.authStateChanges();
   }
 
+  Future<void> _syncAuthLanguage(FirebaseAuth auth) async {
+    try {
+      final locale = Intl.getCurrentLocale();
+      final languageCode = locale.isNotEmpty ? locale.split('_').first : null;
+      await auth.setLanguageCode(languageCode);
+    } catch (_) {
+      // Non-critical locale header sync; proceed with request.
+    }
+  }
+
   /// Signs in an existing user via [FirebaseAuth.instance.signInWithEmailAndPassword].
   Future<User> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
     try {
-      final credential = await _auth.signInWithEmailAndPassword(
+      final auth = _auth;
+      await _syncAuthLanguage(auth);
+      final credential = await auth.signInWithEmailAndPassword(
         email: email.trim(),
         password: password,
       );
@@ -42,7 +55,10 @@ class FirebaseAuthService {
       }
       return user;
     } on FirebaseAuthException catch (e) {
-      AppLogger.log('FirebaseAuth login error: ${e.code}', name: 'AUTH');
+      AppLogger.log(
+        'FirebaseAuth login error [code=${e.code}]: ${e.message}',
+        name: 'AUTH',
+      );
       throw AuthFailure.fromFirebaseException(e);
     } on AuthFailure {
       rethrow;
@@ -59,7 +75,9 @@ class FirebaseAuthService {
     required String password,
   }) async {
     try {
-      final credential = await _auth.createUserWithEmailAndPassword(
+      final auth = _auth;
+      await _syncAuthLanguage(auth);
+      final credential = await auth.createUserWithEmailAndPassword(
         email: email.trim(),
         password: password,
       );
@@ -72,9 +90,12 @@ class FirebaseAuthService {
         await user.updateDisplayName(trimmedName);
         await user.reload();
       }
-      return _auth.currentUser ?? user;
+      return auth.currentUser ?? user;
     } on FirebaseAuthException catch (e) {
-      AppLogger.log('FirebaseAuth register error: ${e.code}', name: 'AUTH');
+      AppLogger.log(
+        'FirebaseAuth register error [code=${e.code}]: ${e.message}',
+        name: 'AUTH',
+      );
       throw AuthFailure.fromFirebaseException(e);
     } on AuthFailure {
       rethrow;
@@ -91,7 +112,10 @@ class FirebaseAuthService {
     try {
       return await user.getIdToken(forceRefresh);
     } on FirebaseAuthException catch (e) {
-      AppLogger.log('FirebaseAuth token error: ${e.code}', name: 'AUTH');
+      AppLogger.log(
+        'FirebaseAuth token error [code=${e.code}]: ${e.message}',
+        name: 'AUTH',
+      );
       return null;
     }
   }

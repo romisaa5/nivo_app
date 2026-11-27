@@ -54,7 +54,8 @@
   "authErrorUserDisabled": "تم تعطيل هذا الحساب. تواصل مع الدعم.",
   "authErrorTooManyRequests": "محاولات كتيرة في وقت قصير، استنى شوية وحاول تاني.",
   "authErrorNetwork": "مفيش اتصال بالإنترنت، تأكد من الشبكة وحاول تاني.",
-  "authErrorNotConfigured": "خدمة Firebase غير مهيأة بعد على هذا الجهاز.",
+  "authErrorNotConfigured": "خدمة المصادقة في Firebase غير مهيأة أو غير مفعّلة بعد لهذا المشروع.",
+  "authErrorOperationNotAllowed": "التسجيل بالبريد الإلكتروني وكلمة المرور غير مفعّل حالياً في إعدادات Firebase.",
   "authErrorUnknown": "حصل خطأ غير متوقع، حاول مرة تانية.",
   "authLoginSuccessMessage": "أهلاً بيك يا {name}! تم تسجيل الدخول بنجاح.",
   "@authLoginSuccessMessage": {

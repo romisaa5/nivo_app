@@ -590,11 +590,21 @@ class S {
     );
   }
 
-  /// `خدمة Firebase غير مهيأة بعد على هذا الجهاز.`
+  /// `خدمة المصادقة في Firebase غير مهيأة أو غير مفعّلة بعد لهذا المشروع.`
   String get authErrorNotConfigured {
     return Intl.message(
-      'خدمة Firebase غير مهيأة بعد على هذا الجهاز.',
+      'خدمة المصادقة في Firebase غير مهيأة أو غير مفعّلة بعد لهذا المشروع.',
       name: 'authErrorNotConfigured',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `التسجيل بالبريد الإلكتروني وكلمة المرور غير مفعّل حالياً في إعدادات Firebase.`
+  String get authErrorOperationNotAllowed {
+    return Intl.message(
+      'التسجيل بالبريد الإلكتروني وكلمة المرور غير مفعّل حالياً في إعدادات Firebase.',
+      name: 'authErrorOperationNotAllowed',
       desc: '',
       args: [],
     );

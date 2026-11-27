@@ -63,7 +63,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "مفيش اتصال بالإنترنت، تأكد من الشبكة وحاول تاني.",
     ),
     "authErrorNotConfigured": MessageLookupByLibrary.simpleMessage(
-      "خدمة Firebase غير مهيأة بعد على هذا الجهاز.",
+      "خدمة المصادقة في Firebase غير مهيأة أو غير مفعّلة بعد لهذا المشروع.",
+    ),
+    "authErrorOperationNotAllowed": MessageLookupByLibrary.simpleMessage(
+      "التسجيل بالبريد الإلكتروني وكلمة المرور غير مفعّل حالياً في إعدادات Firebase.",
     ),
     "authErrorTooManyRequests": MessageLookupByLibrary.simpleMessage(
       "محاولات كتيرة في وقت قصير، استنى شوية وحاول تاني.",

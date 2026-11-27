@@ -54,7 +54,8 @@
   "authErrorUserDisabled": "This account has been disabled.",
   "authErrorTooManyRequests": "Too many attempts. Please wait a moment and try again.",
   "authErrorNetwork": "Network error. Please check your connection and try again.",
-  "authErrorNotConfigured": "Firebase is not configured yet on this device.",
+  "authErrorNotConfigured": "Firebase Authentication is not configured or enabled yet for this project.",
+  "authErrorOperationNotAllowed": "Email/Password sign-in is not enabled yet in Firebase Authentication.",
   "authErrorUnknown": "An unexpected error occurred. Please try again.",
   "authLoginSuccessMessage": "Welcome back, {name}! Signed in successfully.",
   "@authLoginSuccessMessage": {

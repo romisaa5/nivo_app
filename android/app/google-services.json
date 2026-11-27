@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "185264242910",
+    "project_id": "nivo-92f21",
+    "storage_bucket": "nivo-92f21.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185264242910:android:4635235eb59ca524f0424f",
+        "android_client_info": {
+          "package_name": "com.example.nivo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCx8ekDNF44J_uxbwEFPATAOAsHNOvTcvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
