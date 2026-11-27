@@ -51,14 +51,15 @@ class AppTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colors = context.customAppColors;
+    final isDark = context.isDarkMode;
 
     InputBorder border = isUnderline
         ? UnderlineInputBorder(
             borderSide: BorderSide(
               color: isBorder
-                  ? context.customAppColors.grey400
-                  : Colors.transparent,
+                  ? colors.grey400
+                  : colors.grey0.withValues(alpha: 0),
               width: 1.w,
             ),
           )
@@ -66,8 +67,8 @@ class AppTextFormField extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.r),
             borderSide: BorderSide(
               color: isBorder
-                  ? context.customAppColors.grey400
-                  : Colors.transparent,
+                  ? colors.grey400
+                  : colors.grey0.withValues(alpha: 0),
               width: 1.w,
             ),
           );
@@ -77,30 +78,30 @@ class AppTextFormField extends StatelessWidget {
       builder: (FormFieldState<String> state) {
         final effectiveEnabledBorder = state.hasError
             ? (errorBorder ??
-                border.copyWith(
-                  borderSide: BorderSide(
-                    color: context.customAppColors.error500,
-                    width: 1.2.w,
-                  ),
-                ))
+                  border.copyWith(
+                    borderSide: BorderSide(
+                      color: colors.error500,
+                      width: 1.2.w,
+                    ),
+                  ))
             : (enabledBorder ?? border);
         final effectiveFocusedBorder = state.hasError
             ? (errorBorder ??
-                border.copyWith(
-                  borderSide: BorderSide(
-                    color: context.customAppColors.error500,
-                    width: 1.5.w,
-                  ),
-                ))
+                  border.copyWith(
+                    borderSide: BorderSide(
+                      color: colors.error500,
+                      width: 1.5.w,
+                    ),
+                  ))
             : (focusedBorder ??
-                border.copyWith(
-                  borderSide: BorderSide(
-                    color: isBorder
-                        ? context.customAppColors.primary600
-                        : Colors.transparent,
-                    width: 1.5.w,
-                  ),
-                ));
+                  border.copyWith(
+                    borderSide: BorderSide(
+                      color: isBorder
+                          ? colors.primary600
+                          : colors.grey0.withValues(alpha: 0),
+                      width: 1.5.w,
+                    ),
+                  ));
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +122,7 @@ class AppTextFormField extends StatelessWidget {
               },
               focusNode: focusNode,
               obscureText: isObscureText ?? false,
-              cursorColor: context.customAppColors.primary800,
+              cursorColor: isDark ? colors.primary300 : colors.primary800,
               decoration: InputDecoration(
                 isDense: true,
                 contentPadding:
@@ -133,7 +134,7 @@ class AppTextFormField extends StatelessWidget {
                     errorBorder ??
                     border.copyWith(
                       borderSide: BorderSide(
-                        color: context.customAppColors.error500,
+                        color: colors.error500,
                         width: 1.2.w,
                       ),
                     ),
@@ -141,7 +142,7 @@ class AppTextFormField extends StatelessWidget {
                     errorBorder ??
                     border.copyWith(
                       borderSide: BorderSide(
-                        color: context.customAppColors.error500,
+                        color: colors.error500,
                         width: 1.2.w,
                       ),
                     ),
@@ -150,17 +151,19 @@ class AppTextFormField extends StatelessWidget {
                 hintStyle:
                     hintStyle ??
                     AppTextStyles.font14Regular.copyWith(
-                      color: colorScheme.secondary.withValues(alpha: .5),
+                      color: isDark ? colors.neutral400 : colors.neutral500,
                     ),
                 suffixIcon: suffixIcon,
                 prefixIcon: prefixIcon,
-                fillColor: backgroundColor ?? Colors.white,
+                fillColor:
+                    backgroundColor ??
+                    (isDark ? colors.neutral900 : colors.grey0),
                 filled: true,
               ),
               style:
                   inputTextStyle ??
                   AppTextStyles.font16Regular.copyWith(
-                    color: colorScheme.secondary,
+                    color: isDark ? colors.grey0 : colors.neutral900,
                   ),
             ),
             if (state.hasError)
@@ -170,7 +173,7 @@ class AppTextFormField extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.error_outline,
-                      color: context.customAppColors.error500,
+                      color: colors.error500,
                       size: 16.sp,
                     ),
                     5.w.horizontalSpace,
@@ -178,7 +181,7 @@ class AppTextFormField extends StatelessWidget {
                       child: Text(
                         state.errorText ?? '',
                         style: AppTextStyles.font12Regular.copyWith(
-                          color: context.customAppColors.error500,
+                          color: colors.error500,
                         ),
                       ),
                     ),

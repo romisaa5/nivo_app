@@ -58,6 +58,11 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.customAppColors;
+    final isDark = context.isDarkMode;
+    final surfaceColor = isDark ? colors.neutral900 : colors.neutral100;
+    final textColor = isDark ? colors.neutral200 : colors.neutral600;
+
     if (widget.items.isEmpty) {
       return _disabledView(context);
     }
@@ -69,11 +74,11 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
             isExpanded: true,
             valueListenable: _valueNotifier,
             hint: Align(
-              alignment: Alignment.centerRight,
+              alignment: AlignmentDirectional.centerStart,
               child: Text(
                 widget.hint,
                 style: AppTextStyles.font14Regular.copyWith(
-                  color: context.customAppColors.neutral600,
+                  color: textColor,
                 ),
               ),
             ),
@@ -82,11 +87,11 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
                 value: item,
                 height: 45.h,
                 child: Align(
-                  alignment: Alignment.centerRight,
+                  alignment: AlignmentDirectional.centerStart,
                   child: Text(
                     widget.labelBuilder(item),
                     style: AppTextStyles.font14Regular.copyWith(
-                      color: context.customAppColors.neutral600,
+                      color: textColor,
                     ),
                   ),
                 ),
@@ -100,26 +105,29 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
               height: 55.h,
               padding: EdgeInsets.symmetric(horizontal: 8.w),
               decoration: BoxDecoration(
-                color: context.customAppColors.neutral100,
+                color: surfaceColor,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(
                   color: widget.errorText != null
-                      ? context.customAppColors.error500
-                      : Colors.transparent,
+                      ? colors.error500
+                      : colors.grey0.withValues(alpha: 0),
                 ),
               ),
             ),
             iconStyleData: IconStyleData(
-              icon: const Icon(Icons.expand_more_rounded),
+              icon: Icon(Icons.expand_more_rounded, color: textColor),
               iconSize: 26.sp,
             ),
             dropdownStyleData: DropdownStyleData(
               maxHeight: 250.h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color: context.customAppColors.neutral100,
-                boxShadow: const [
-                  BoxShadow(blurRadius: 12, color: Colors.black12),
+                color: surfaceColor,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 12,
+                    color: colors.black.withValues(alpha: 0.12),
+                  ),
                 ],
               ),
             ),
@@ -132,7 +140,7 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
             children: [
               Icon(
                 Icons.error,
-                color: context.customAppColors.error500,
+                color: colors.error500,
                 size: 18.sp,
               ),
               5.w.pw,
@@ -140,7 +148,7 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
                 child: Text(
                   widget.errorText!,
                   style: AppTextStyles.font12Regular.copyWith(
-                    color: context.customAppColors.error500,
+                    color: colors.error500,
                   ),
                 ),
               ),
@@ -152,19 +160,22 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
   }
 
   Widget _disabledView(BuildContext context) {
+    final colors = context.customAppColors;
+    final isDark = context.isDarkMode;
+
     return Container(
       height: 55.h,
       width: double.infinity,
-      alignment: Alignment.centerRight,
+      alignment: AlignmentDirectional.centerStart,
       padding: EdgeInsets.symmetric(horizontal: 12.w),
       decoration: BoxDecoration(
-        color: context.customAppColors.neutral100,
+        color: isDark ? colors.neutral900 : colors.neutral100,
         borderRadius: BorderRadius.circular(14),
       ),
       child: Text(
         widget.hint,
         style: AppTextStyles.font14Regular.copyWith(
-          color: context.customAppColors.neutral600,
+          color: isDark ? colors.neutral400 : colors.neutral600,
         ),
       ),
     );

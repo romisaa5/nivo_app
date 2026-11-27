@@ -62,7 +62,7 @@ class CustomButton extends StatelessWidget {
                   height: 24.h,
                   width: 24.h,
                   child: CircularProgressIndicator(
-                    color: textcolor ?? Colors.white,
+                    color: textcolor ?? context.customAppColors.grey0,
                     strokeWidth: 2,
                   ),
                 ),
@@ -77,7 +77,7 @@ class CustomButton extends StatelessWidget {
                     style:
                         style ??
                         AppTextStyles.font14SemiBold.copyWith(
-                          color: textcolor ?? Colors.white,
+                          color: textcolor ?? context.customAppColors.grey0,
                           fontWeight: FontWeight.w500,
                         ),
                     textAlign: TextAlign.center,
