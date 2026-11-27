@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sanad_app/core/helpers/extensions.dart';
-import 'package:sanad_app/core/theme/app_texts/app_text_styles.dart';
-import 'package:sanad_app/core/theme/theme_manager/theme_extensions.dart';
+import 'package:nivo/core/helpers/extensions.dart';
+import 'package:nivo/core/theme/theme_manager/theme_extensions.dart';
+
+import '../../theme/app_texts/app_text_styles.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({

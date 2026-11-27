@@ -1,4 +1,4 @@
-import 'package:sanad_app/core/helpers/app_regex.dart';
+import 'package:nivo/core/helpers/app_regex.dart';
 
 class AppValidators {
   /// ================== الاسم ==================

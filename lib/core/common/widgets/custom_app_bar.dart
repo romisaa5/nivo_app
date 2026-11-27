@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:sanad_app/core/utils/common_imports.dart';
+import 'package:nivo/core/theme/app_texts/app_text_styles.dart';
+import 'package:nivo/core/theme/theme_manager/theme_extensions.dart';
+import 'package:nivo/core/utils/common_imports.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key, required this.text});

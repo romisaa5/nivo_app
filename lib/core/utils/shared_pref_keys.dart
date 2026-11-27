@@ -4,6 +4,12 @@ class SharedPrefKeys {
   // Onboarding Keys
   static const String onboardingCompleted = 'onboardingCompleted';
 
+  // Firebase Auth Session Cache Keys (non-sensitive metadata only)
+  static const String isAuthenticated = 'is_authenticated';
+  static const String firebaseUid = 'firebase_uid';
+  static const String userEmail = 'user_email';
+  static const String userDisplayName = 'user_display_name';
+
   // lawer Keys
   static const lawyerId = 'lawyer_id';
   static const lawyerFirstName = 'lawyer_first_name';

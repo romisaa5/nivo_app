@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sanad_app/core/theme/app_texts/app_text_styles.dart';
-import 'package:sanad_app/core/theme/theme_manager/theme_extensions.dart';
+import 'package:nivo/core/theme/app_texts/app_text_styles.dart';
+import 'package:nivo/core/theme/theme_manager/theme_extensions.dart';
 
 class AppTextFormField extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
@@ -75,6 +75,33 @@ class AppTextFormField extends StatelessWidget {
     return FormField<String>(
       validator: validator,
       builder: (FormFieldState<String> state) {
+        final effectiveEnabledBorder = state.hasError
+            ? (errorBorder ??
+                border.copyWith(
+                  borderSide: BorderSide(
+                    color: context.customAppColors.error500,
+                    width: 1.2.w,
+                  ),
+                ))
+            : (enabledBorder ?? border);
+        final effectiveFocusedBorder = state.hasError
+            ? (errorBorder ??
+                border.copyWith(
+                  borderSide: BorderSide(
+                    color: context.customAppColors.error500,
+                    width: 1.5.w,
+                  ),
+                ))
+            : (focusedBorder ??
+                border.copyWith(
+                  borderSide: BorderSide(
+                    color: isBorder
+                        ? context.customAppColors.primary600
+                        : Colors.transparent,
+                    width: 1.5.w,
+                  ),
+                ));
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -100,22 +127,13 @@ class AppTextFormField extends StatelessWidget {
                 contentPadding:
                     contentPadding ??
                     EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
-                focusedBorder:
-                    focusedBorder ??
-                    border.copyWith(
-                      borderSide: BorderSide(
-                        color: isBorder
-                            ? context.customAppColors.primary600
-                            : Colors.transparent,
-                        width: 1.5.w,
-                      ),
-                    ),
-                enabledBorder: enabledBorder ?? border,
+                focusedBorder: effectiveFocusedBorder,
+                enabledBorder: effectiveEnabledBorder,
                 errorBorder:
                     errorBorder ??
                     border.copyWith(
                       borderSide: BorderSide(
-                        color: colorScheme.error,
+                        color: context.customAppColors.error500,
                         width: 1.2.w,
                       ),
                     ),
@@ -123,7 +141,7 @@ class AppTextFormField extends StatelessWidget {
                     errorBorder ??
                     border.copyWith(
                       borderSide: BorderSide(
-                        color: colorScheme.error,
+                        color: context.customAppColors.error500,
                         width: 1.2.w,
                       ),
                     ),
@@ -147,12 +165,12 @@ class AppTextFormField extends StatelessWidget {
             ),
             if (state.hasError)
               Padding(
-                padding: EdgeInsets.only(top: 6.h, left: 8.w),
+                padding: EdgeInsetsDirectional.only(top: 6.h, start: 4.w),
                 child: Row(
                   children: [
                     Icon(
                       Icons.error_outline,
-                      color: colorScheme.error,
+                      color: context.customAppColors.error500,
                       size: 16.sp,
                     ),
                     5.w.horizontalSpace,
@@ -160,7 +178,7 @@ class AppTextFormField extends StatelessWidget {
                       child: Text(
                         state.errorText ?? '',
                         style: AppTextStyles.font12Regular.copyWith(
-                          color: colorScheme.error,
+                          color: context.customAppColors.error500,
                         ),
                       ),
                     ),
